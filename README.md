@@ -1,2 +1,2 @@
-# Django_Chat
+# Django Chat
 REST API with Django
