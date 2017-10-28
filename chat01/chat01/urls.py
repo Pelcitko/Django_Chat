@@ -20,6 +20,6 @@ from Chat_app.views import home
 
 urlpatterns = [
     url(r'^$', home),
-    # url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
 ]

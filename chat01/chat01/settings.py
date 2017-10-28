@@ -28,6 +28,30 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+DEFAULT_FROM_EMAIL = 'pelc.it@gmail.com'
+
+if DEBUG:
+    # EMAIL_HOST = 'localhost'
+    # EMAIL_PORT = 1025
+    # EMAIL_HOST_USER = ''
+    # EMAIL_HOST_PASSWORD = ''
+    # EMAIL_USE_TLS = False
+    # DEFAULT_FROM_EMAIL = 'testing@example.com'
+
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'Lukas'
+    SERVER_EMAIL = 'pelc.it@gmail.com'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'pelc.it@gmail.com'
+    EMAIL_HOST_PASSWORD = 'PelcIt:-)64'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'pelc.it@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Pelc.it64'
+# EMAIL_PORT = 857
+# EMAIL_USE_TLS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,11 +61,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.auth',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.google',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     'Chat_app.apps.ChatAppConfig',
     'django.contrib.admin',
 ]
@@ -52,6 +77,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',                                                   # pridano
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -82,37 +108,89 @@ WSGI_APPLICATION = 'chat01.wsgi.application'
 
 DATABASES = {
     'default': {
+        #TODO: Tu to bude chtít trochu poladit .mysql
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'USER':
+        #'PASSWORD':
+        #'HOST':
     }
 }
 
+# Needed django-allauth
+
+AUTHENTICATION_BACKENDS = (
+     # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# auth and allauth settings
+# LOGIN_REDIRECT_URL = '/'
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# SOCIALACCOUNT_PROVIDERS = {
+#     'facebook': {
+#         'SCOPE': ['email', 'publish_stream']
+#     }
+# }
+
+ACCOUNT_ADAPTER ='allauth.account.adapter.DefaultAccountAdapter'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory" #poviný?
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 21
+SOCIALACCOUNT_ADAPTER = 'social_adapter.SocialAccountAdapter'
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'SCOPE': ['email', 'public_profile'],
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'link',
+            'gender',],
+        'METHOD': 'js_sdk',  # instead of 'oauth2'
+        # 'EXCHANGE_TOKEN': True,
+        },
+     # 'google':
+     #    { 'SCOPE': ['profile', 'email'],
+     #      'AUTH_PARAMS': { 'access_type': 'online' }}
+    }
+
+SITE_ID = 1
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'cs-cz' # 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 
 USE_I18N = True
 
@@ -125,5 +203,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'Chat_app/static')
 
 # TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+
+AWS_QUERYSTRING_AUTH = False

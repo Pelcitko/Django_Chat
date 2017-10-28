@@ -1,7 +1,25 @@
-{% extends 'base.html' %}
 
-{% block title %}Místnosti{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <style type="text/css">
+        body{
+  /* The image used */
+    background-image: url("{% static '/blackboard.jpg' %}");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+    </style>
+{% endblock %}
+{% block title %} | Místnosti{% endblock %}
 
 {% block content %}
-    <h1>slovo</h1>
+    <div class="container-fluid">
+        <h1>Slovo</h1>
+    </div>
 {% endblock %}
