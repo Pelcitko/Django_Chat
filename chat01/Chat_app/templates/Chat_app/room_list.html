@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_style %}
+    <style type="text/css">
+        body{
+          /* The image used */
+            background-image: url("{% static 'walpers/faro1.jpg' %}");
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .shadow{
+            background-color: darkgrey;
+            opacity: 0.7;
+        }
+    </style>
+{% endblock %}
+{% block title %} | Místnosti{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="shadow"> Otevřené místnosti </h1>
+
+        <div class="col">
+            {% for room in object_list %}
+                 <div class="col-sm-6 col-md-4 col-lg-3 center-block">
+                  <form method="get" action="/{{ room.id }}">
+                  <button class="btn btn-default" type="submit">
+                    <div class="caption">
+                      <h3>{{ room.name }}</h3>
+                      <p>{{ room.description }}</p>
+                    </div>
+                  </button>
+                  </form>
+                 </div>
+            {% empty %}
+                <li>Vašemu výběru bohužel neodpovídá žádná růže.</li>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
