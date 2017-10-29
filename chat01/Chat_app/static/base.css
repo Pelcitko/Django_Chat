@@ -2,8 +2,16 @@ body, html {
     height: 100%;
 }
 
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+/*body {*/
+  /*padding-top: 40px;*/
+  /*padding-bottom: 40px;*/
+/*}*/
+body{
+    background-color: #eee;
+    /* The image used */
+    /*background-image: url("background.jpg");*/
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

@@ -9,3 +9,6 @@ from django.shortcuts import render
 def home(request):
     # return HttpResponse("template")
     return render(request, "chat/home.html", {})  # response
+
+def login(request):
+    return render(request, "chat/login.html", {})

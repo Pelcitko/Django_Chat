@@ -2,18 +2,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_head %}
+{% block extra_style %}
     <style type="text/css">
         body{
-  /* The image used */
-    background-image: url("{% static '/blackboard.jpg' %}");
-    /* Full height */
-    height: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+          /* The image used */
+            background-image: url("{% static 'walpers/blackboard.jpg' %}");
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     </style>
 {% endblock %}
 {% block title %} | Místnosti{% endblock %}

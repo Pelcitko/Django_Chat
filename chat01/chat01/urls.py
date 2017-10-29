@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from Chat_app.views import home
+from Chat_app.views import home, login
 
 urlpatterns = [
     url(r'^$', home),
+    url(r'^login$', login),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
 ]

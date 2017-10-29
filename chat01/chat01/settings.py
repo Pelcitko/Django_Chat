@@ -25,7 +25,7 @@ SECRET_KEY = '(_9#%syv-g6@gvrw9r3b@eaew#=7jfcd1f2a)uvgj$augmx#0u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 DEFAULT_FROM_EMAIL = 'pelc.it@gmail.com'
@@ -144,6 +144,7 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_USERNAME_REQUIRED = False
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory" #poviný?
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 21
+LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_ADAPTER = 'social_adapter.SocialAccountAdapter'
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
@@ -157,11 +158,12 @@ SOCIALACCOUNT_PROVIDERS = \
             'link',
             'gender',],
         'METHOD': 'js_sdk',  # instead of 'oauth2'
-        # 'EXCHANGE_TOKEN': True,
+        'EXCHANGE_TOKEN': True,
         },
-     # 'google':
-     #    { 'SCOPE': ['profile', 'email'],
-     #      'AUTH_PARAMS': { 'access_type': 'online' }}
+     'google':
+        { 'SCOPE': ['profile', 'email'],
+          'AUTH_PARAMS': { 'access_type': 'online' },
+          }
     }
 
 SITE_ID = 1
